@@ -9,13 +9,31 @@ start   : (s+=stmt)* e=expr EOF ;
 expr : x=ID						# Variable
 	 | op=OP f=FLOAT			# SignedConstant
 	 | c=FLOAT					# Constant
-	 | e1=expr op=OP2 e2=expr	# Multiplication
-	 | e1=expr op=OP e2=expr	# Addition
+	 | e1=expr op=OP2 e2=expr	# MultDiv
+	 | e1=expr op=OP e2=expr	# AddSub
 	 | '(' e=expr ')'			# Parenthesis
 ;
 
-stmt : x=ID '=' e=expr			# Assign
+stmt : x=ID '=' e=expr						# Assignment
+	| 'if' '(' cond ')' stmts				# If
+	| 'if' '(' cond ')' stmts 'else' stmts	# IfElse
+	| 'while' '(' cond ')' stmts			# While
 ;
+
+stmts: stmt ';' stmts
+	| stmt
+	|
+;
+
+cond : expr ('=='|'!=') expr
+	| expr ('<'|'>') expr
+	| cond ('&&'|'||') cond
+	| '!' cond
+;
+
+//prog : stmt ';'
+//	| stmts
+//;
 
 // Lexer:
 
