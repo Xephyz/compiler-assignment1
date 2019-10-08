@@ -1,0 +1,13 @@
+# .class & .java files (Besides 'main.java')
+*.class
+*.java
+
+# .tokens & .interp files
+*.interp
+*.tokens
+
+# IntelliJ folder
+.idea/
+
+# antlr folder
+.antlr/
