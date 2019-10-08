@@ -5,11 +5,11 @@ start   : (s+=stmt)* e=expr EOF ;
 /* A grammar for arithmetic expressions */
 
 expr : x=ID						# Variable
-	 | op=OP f=FLOAT			# SignedConstant
-	 | c=FLOAT					# Constant
-	 | e1=expr op=OP2 e2=expr	# MultDiv
-	 | e1=expr op=OP e2=expr	# AddSub
-	 | '(' e=expr ')'			# Parenthesis
+	| op=OP f=FLOAT				# SignedConstant
+	| c=FLOAT					# Constant
+	| e1=expr op=OP2 e2=expr	# MultDiv
+	| e1=expr op=OP e2=expr		# AddSub
+	| '(' e=expr ')'			# Parenthesis
 ;
 
 stmt : x=ID '=' e=expr						# Assignment
