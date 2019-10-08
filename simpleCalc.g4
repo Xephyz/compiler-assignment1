@@ -2,8 +2,6 @@ grammar simpleCalc;
 
 start   : (s+=stmt)* e=expr EOF ;
 
-// assign : x=ID '=' e=expr  ;
-
 /* A grammar for arithmetic expressions */
 
 expr : x=ID						# Variable
