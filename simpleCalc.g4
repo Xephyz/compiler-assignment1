@@ -12,23 +12,23 @@ expr : x=ID						# Variable
 	| '(' e=expr ')'			# Parenthesis
 ;
 
-stmt : x=ID '=' e=expr						# Assignment
-	| 'if' '(' cond ')' prog				# If
-	| 'if' '(' cond ')' prog 'else' prog	# IfElse
-	| 'while' '(' cond ')' prog				# While
+stmt : x=ID '=' e=expr								# Assignment
+	| 'if' '(' c=cond ')' p=prog					# If
+	| 'if' '(' c=cond ')' p1=prog 'else' p2=prog	# IfElse
+	| 'while' '(' c=cond ')' p=prog					# While
 ;
 
 stmts: stmt stmts
 	| // epsilon
 ;
 
-cond : '!' cond					# Negation
-	| expr EQ expr				# Comparison
-	| cond ('&&'|'||') cond		# AndOr
+cond : '!' c=cond					# Negation
+	| e1=expr op=EQ e2=expr			# Comparison
+	| c1=cond ('&&'|'||') c2=cond	# AndOr
 ;
 
-prog : stmt				# Oneliner
-	| '{' stmts '}'		# Scope
+prog : s=stmt				# Oneliner
+	| '{' s=stmts '}'		# Scope
 ;
 
 // Lexer:
