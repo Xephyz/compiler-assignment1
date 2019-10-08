@@ -13,30 +13,30 @@ expr : x=ID						# Variable
 ;
 
 stmt : x=ID '=' e=expr						# Assignment
-	| 'if' '(' cond ')' stmts				# If
-	| 'if' '(' cond ')' stmts 'else' stmts	# IfElse
-	| 'while' '(' cond ')' stmts			# While
+	| 'if' '(' cond ')' prog				# If
+	| 'if' '(' cond ')' prog 'else' prog	# IfElse
+	| 'while' '(' cond ')' prog				# While
 ;
 
-stmts: stmt ';' stmts
-	| stmt
-	|
+stmts: stmt stmts
+	| // epsilon
 ;
 
-cond : expr ('=='|'!=') expr
-	| expr ('<'|'>') expr
-	| cond ('&&'|'||') cond
-	| '!' cond
+cond : '!' cond					# Negation
+	| expr EQ expr				# Comparison
+	| cond ('&&'|'||') cond		# AndOr
 ;
 
-//prog : stmt ';'
-//	| stmts
-//;
+prog : stmt				# Oneliner
+	| '{' stmts '}'		# Scope
+;
 
 // Lexer:
 
-OP : ('-'|'+') ; // Plus/Minus operatorer
-OP2: ('*'|'/') ; // Gange/Dividere operatorer
+OP : ('-'|'+') ; // Plus/Minus operators
+OP2: ('*'|'/') ; // Mutiply/Divide operators
+
+EQ : ('=='|'!='|'<'|'>'|'<='|'>=') ; // Equality operators
 
 ID    : ALPHA (ALPHA|NUM)* ;
 FLOAT : NUM+ ('.' NUM+)? ;
