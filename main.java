@@ -60,11 +60,11 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		for (simpleCalcParser.StmtContext a : ctx.s)
 			visit(a);
 		return visit(ctx.e);
-	};
+	}
 
 	public Double visitParenthesis(simpleCalcParser.ParenthesisContext ctx) {
 		return visit(ctx.e);
-	};
+	}
 
 	public Double visitVariable(simpleCalcParser.VariableContext ctx) {
 		// New implementation: look up the value of the variable in the environment env:
@@ -75,29 +75,29 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 			System.exit(-1);
 		}
 		return d;
-	};
+	}
 
 	public Double visitAddSub(simpleCalcParser.AddSubContext ctx) {
 		if (ctx.op.getText().equals("+"))
 			return visit(ctx.e1) + visit(ctx.e2);
 		else
 			return visit(ctx.e1) - visit(ctx.e2);
-	};
+	}
 
 	public Double visitMultDiv(simpleCalcParser.MultDivContext ctx) {
 		if (ctx.op.getText().equals("*"))
 			return visit(ctx.e1) * visit(ctx.e2);
 		else
 			return visit(ctx.e1) / visit(ctx.e2);
-	};
+	}
 
 	public Double visitConstant(simpleCalcParser.ConstantContext ctx) {
 		return Double.parseDouble(ctx.c.getText());
-	};
+	}
 
 	public Double visitSignedConstant(simpleCalcParser.SignedConstantContext ctx) {
 		return Double.parseDouble(ctx.getText());
-	};
+	}
 
 	public Double visitAssignment(simpleCalcParser.AssignmentContext ctx) {
 		// New implementation: evaluate the expression and store it in the environment for the given
@@ -107,11 +107,11 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		env.put(varname, v);
 
 		return v;
-	};
+	}
 
 	public Double visitIf(simpleCalcParser.IfContext ctx) {
 		return 0.0;
-	};
+	}
 
 	public Double visitIfElse(simpleCalcParser.IfElseContext ctx) {
 		return 0.0;
@@ -125,7 +125,23 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		return 0.0;
 	}
 
-	public Double visitCond(simpleCalcParser.CondContext ctx) {
+	public Double visitNegation(simpleCalcParser.NegationContext ctx) {
+		return 0.0;
+	}
+
+	public Double visitComparison(simpleCalcParser.ComparisonContext ctx) {
+		return 0.0;
+	}
+
+	public Double visitAndOr(simpleCalcParser.AndOrContext ctx) {
+		return 0.0;
+	}
+
+	public Double visitOneliner(simpleCalcParser.OnelinerContext ctx) {
+		return 0.0;
+	}
+
+	public Double visitScope(simpleCalcParser.ScopeContext ctx) {
 		return 0.0;
 	}
 }
