@@ -37,9 +37,12 @@ public class main {
 
 		// Construct an interpreter and run it on the parse tree
 		Interpreter interpreter = new Interpreter();
+
+
 		Double result = interpreter.visit(parseTree);
 
-		System.out.println("The result is: " + result);
+		//System.out.println("The result is: " + result);
+
 	}
 }
 
@@ -59,7 +62,8 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	    visit(a);*/
 		for (simpleCalcParser.StmtContext a : ctx.s)
 			visit(a);
-		return visit(ctx.e);
+		//return visit(ctx.e);
+		return 0.0;
 	}
 
 	public Double visitParenthesis(simpleCalcParser.ParenthesisContext ctx) {

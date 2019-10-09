@@ -1,6 +1,6 @@
 grammar simpleCalc;
 
-start   : (s+=stmt)* e=expr EOF ;
+start   : (s+=stmt)* /*e=expr*/ EOF ;
 
 /* A grammar for arithmetic expressions */
 
@@ -16,7 +16,7 @@ stmt : x=ID '=' e=expr						# Assignment
 	| 'if' c=cond p=prog					# If
 	| 'if' c=cond p1=prog 'else' p2=prog	# IfElse
 	| 'while' c=cond p=prog					# While
-	| 'print' str=(ALPHA|NUM)*             # PrintStr
+	| 'print' str=STRING                   # PrintStr
 	| 'print' e=expr                       # PrintVar
 ;
 
@@ -42,6 +42,7 @@ OP2: ('*'|'/') ; // Mutiply/Divide operators
 EQ : ('=='|'!='|'<'|'>'|'<='|'>=') ; // Equality operators
 
 ID    : ALPHA (ALPHA|NUM)* ;
+STRING: '"' (ALPHA|NUM)* '"';
 FLOAT : NUM+ ('.' NUM+)? ;
 
 ALPHA : [a-zA-Z_ÆØÅæøå] ;
