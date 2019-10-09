@@ -12,19 +12,19 @@ expr : x=ID						# Variable
 	| '(' e=expr ')'			# Parenthesis
 ;
 
-stmt : x=ID '=' e=expr								# Assignment
-	| 'if' '(' c=cond ')' p=prog					# If
-	| 'if' '(' c=cond ')' p1=prog 'else' p2=prog	# IfElse
-	| 'while' '(' c=cond ')' p=prog					# While
+stmt : x=ID '=' e=expr						# Assignment
+	| 'if' c=cond p=prog					# If
+	| 'if' c=cond p1=prog 'else' p2=prog	# IfElse
+	| 'while' c=cond p=prog					# While
 ;
 
-stmts: stmt stmts
-	| // epsilon
+stmts: s1=stmt s2=stmts		# Statements
+	| /* epsilon */			# Epsilon
 ;
 
-cond : '!' c=cond					# Negation
-	| e1=expr op=EQ e2=expr			# Comparison
-	| c1=cond ('&&'|'||') c2=cond	# AndOr
+cond : '!' c=cond						# Negation
+	| e1=expr op=EQ e2=expr				# Comparison
+	| c1=cond op=('and'|'or') c2=cond	# AndOr
 ;
 
 prog : s=stmt				# Oneliner
