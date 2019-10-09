@@ -110,38 +110,105 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	}
 
 	public Double visitIf(simpleCalcParser.IfContext ctx) {
+		if (visit(ctx.c) == 1.0) {
+			return visit(ctx.p);
+		}
 		return 0.0;
 	}
 
 	public Double visitIfElse(simpleCalcParser.IfElseContext ctx) {
-		return 0.0;
+		if (visit(ctx.c) == 1.0) return visit(ctx.p1);
+		return visit(ctx.p2);
 	}
 
 	public Double visitWhile(simpleCalcParser.WhileContext ctx) {
+		while (visit(ctx.c) == 1.0) {
+			visit(ctx.p);
+		}
 		return 0.0;
 	}
 
-	public Double visitStmts(simpleCalcParser.StmtsContext ctx) {
+	public Double visitStatements(simpleCalcParser.StatementsContext ctx) {
+		visit(ctx.s1);
+		visit(ctx.s2);
+		return 0.0;
+	}
+
+	public Double visitEpsilon(simpleCalcParser.EpsilonContext ctx) {
 		return 0.0;
 	}
 
 	public Double visitNegation(simpleCalcParser.NegationContext ctx) {
-		return 0.0;
+		if (visit(ctx.c)== 1.0) return 0.0;
+		else return 1.0;
 	}
 
 	public Double visitComparison(simpleCalcParser.ComparisonContext ctx) {
+		if (ctx.op.getText().equals("==")) {
+			if (visit(ctx.e1).equals(visit(ctx.e2))) {
+				return 1.0;
+			} else {
+				return 0.0;
+			}
+		}
+		if (ctx.op.getText().equals("!=")) {
+			if (visit(ctx.e1) != visit(ctx.e2)) {
+				return 1.0;
+			} else {
+				return 0.0;
+			}
+		}
+		if (ctx.op.getText().equals("<")) {
+			if (visit(ctx.e1) < visit(ctx.e2)) {
+				return 1.0;
+			} else {
+				return 0.0;
+			}
+		}
+		if (ctx.op.getText().equals(">")) {
+			if (visit(ctx.e1) > visit(ctx.e2)) {
+				return 1.0;
+			} else {
+				return 0.0;
+			}
+		}
+		if (ctx.op.getText().equals("<=")) {
+			if (visit(ctx.e1) <= visit(ctx.e2)) {
+				return 1.0;
+			} else {
+				return 0.0;
+			}
+		}
+		if (ctx.op.getText().equals(">=")) {
+			if (visit(ctx.e1) >= visit(ctx.e2)) {
+				return 1.0;
+			} else {
+				return 0.0;
+			}
+		}
 		return 0.0;
 	}
 
 	public Double visitAndOr(simpleCalcParser.AndOrContext ctx) {
+		if (ctx.op.getText().equals("and")) {
+			if (visit(ctx.c1) == 1.0 && visit(ctx.c2) == 1.0) {
+				return 1.0;
+			}
+		} else {
+			if (visit(ctx.c1) == 1.0 || visit(ctx.c2) == 1.0) {
+				return 1.0;
+			}
+		}
 		return 0.0;
 	}
 
 	public Double visitOneliner(simpleCalcParser.OnelinerContext ctx) {
+		visit(ctx.s);
 		return 0.0;
 	}
 
 	public Double visitScope(simpleCalcParser.ScopeContext ctx) {
+		visit(ctx.s);
 		return 0.0;
 	}
 }

@@ -3,15 +3,22 @@ x=7*3
 y=x*2
 z=x-y
 
-
-if ( x == 7*2 && y != 420 || !z!=9) {
+/*
+if x == 7*2 && y != 420 || !z!=9 {
 	b=x+5 c=3*y
 } else {
 	b=z*-1 c=2*x
 }
 
-while ( a<3 ) {
+if a==0.0 z=5 else z=8
+
+while a<3 {
 	a=a+1
+	z=z+2
 }
 
-z*-2
+*/
+
+if a==0.0 and !x==2 z=42 else z=-42
+
+z
