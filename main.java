@@ -211,5 +211,13 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		visit(ctx.s);
 		return 0.0;
 	}
+	public Double visitPrintStr(simpleCalcParser.PrintStrContext ctx) {
+		System.out.println(ctx.str.getText());
+		return 0.0;
+	}
+	public Double visitPrintVar(simpleCalcParser.PrintVarContext ctx) {
+		System.out.println(visit(ctx.e));
+		return 0.0;
+	}
 }
 

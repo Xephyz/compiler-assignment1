@@ -16,6 +16,8 @@ stmt : x=ID '=' e=expr						# Assignment
 	| 'if' c=cond p=prog					# If
 	| 'if' c=cond p1=prog 'else' p2=prog	# IfElse
 	| 'while' c=cond p=prog					# While
+	| 'print' str=(ALPHA|NUM)*             # PrintStr
+	| 'print' e=expr                       # PrintVar
 ;
 
 stmts: s1=stmt s2=stmts		# Statements
@@ -30,6 +32,7 @@ cond : '!' c=cond						# Negation
 prog : s=stmt				# Oneliner
 	| '{' s=stmts '}'		# Scope
 ;
+
 
 // Lexer:
 
