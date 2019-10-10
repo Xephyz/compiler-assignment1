@@ -1,6 +1,6 @@
 grammar simpleCalc;
 
-start   : (s+=stmt)* (e+=expr)* EOF ;
+start   : (s+=stmt)* /*e=expr*/ EOF ;
 
 /* A grammar for arithmetic expressions */
 
@@ -26,7 +26,8 @@ stmts: s1=stmt s2=stmts		# Statements
 
 cond : '!' c=cond						# Negation
 	| e1=expr op=EQ e2=expr				# Comparison
-	| c1=cond op=('and'|'or') c2=cond	# AndOr
+	| c1=cond op='and' c2=cond	        # And
+	| c1=cond op='or' c2=cond	        # Or
 ;
 
 prog : s=stmt				# Oneliner

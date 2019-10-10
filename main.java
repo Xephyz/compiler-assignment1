@@ -193,15 +193,15 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		return 0.0;
 	}
 
-	public Double visitAndOr(simpleCalcParser.AndOrContext ctx) {
-		if (ctx.op.getText().equals("and")) {
-			if (visit(ctx.c1) == 1.0 && visit(ctx.c2) == 1.0) {
-				return 1.0;
-			}
-		} else {
-			if (visit(ctx.c1) == 1.0 || visit(ctx.c2) == 1.0) {
-				return 1.0;
-			}
+	public Double visitAnd(simpleCalcParser.AndContext ctx) {
+		if (visit(ctx.c1) == 1.0 && visit(ctx.c2) == 1.0) {
+			return 1.0;
+		}
+		return 0.0;
+	}
+	public Double visitOr(simpleCalcParser.OrContext ctx) {
+		if (visit(ctx.c1) == 1.0 || visit(ctx.c2) == 1.0) {
+			return 1.0;
 		}
 		return 0.0;
 	}
