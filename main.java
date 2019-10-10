@@ -199,6 +199,7 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		}
 		return 0.0;
 	}
+
 	public Double visitOr(simpleCalcParser.OrContext ctx) {
 		if (visit(ctx.c1) == 1.0 || visit(ctx.c2) == 1.0) {
 			return 1.0;
@@ -215,13 +216,15 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		visit(ctx.s);
 		return 0.0;
 	}
+
 	public Double visitPrintStr(simpleCalcParser.PrintStrContext ctx) {
 		String str_in = ctx.str.getText();
-		String str_out = str_in.substring(1, str_in.length()-1);
+		String str_out = str_in.substring(1, str_in.length() - 1);
 
 		System.out.println(str_out);
 		return 0.0;
 	}
+
 	public Double visitPrintVar(simpleCalcParser.PrintVarContext ctx) {
 		System.out.println(visit(ctx.e));
 		return 0.0;
