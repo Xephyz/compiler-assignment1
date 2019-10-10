@@ -16,8 +16,8 @@ stmt : x=ID '=' e=expr						# Assignment
 	| 'if' c=cond p=prog					# If
 	| 'if' c=cond p1=prog 'else' p2=prog	# IfElse
 	| 'while' c=cond p=prog					# While
-	| 'print' str=STRING                   # PrintStr
-	| 'print' e=expr                       # PrintVar
+	| 'print' str=STRING					# PrintStr
+	| 'print' e=expr						# PrintVar
 ;
 
 stmts: s1=stmt s2=stmts		# Statements
@@ -26,8 +26,8 @@ stmts: s1=stmt s2=stmts		# Statements
 
 cond : '!' c=cond						# Negation
 	| e1=expr op=EQ e2=expr				# Comparison
-	| c1=cond op='and' c2=cond	        # And
-	| c1=cond op='or' c2=cond	        # Or
+	| c1=cond op='and' c2=cond			# And
+	| c1=cond op='or' c2=cond			# Or
 ;
 
 prog : s=stmt				# Oneliner
