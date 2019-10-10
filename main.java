@@ -37,9 +37,12 @@ public class main {
 
 		// Construct an interpreter and run it on the parse tree
 		Interpreter interpreter = new Interpreter();
+
+
 		Double result = interpreter.visit(parseTree);
 
-		System.out.println("The result is: " + result);
+		//System.out.println("The result is: " + result);
+
 	}
 }
 
@@ -59,7 +62,8 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	    visit(a);*/
 		for (simpleCalcParser.StmtContext a : ctx.s)
 			visit(a);
-		return visit(ctx.e);
+		//return visit(ctx.e);
+		return 0.0;
 	}
 
 	public Double visitParenthesis(simpleCalcParser.ParenthesisContext ctx) {
@@ -189,15 +193,15 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		return 0.0;
 	}
 
-	public Double visitAndOr(simpleCalcParser.AndOrContext ctx) {
-		if (ctx.op.getText().equals("and")) {
-			if (visit(ctx.c1) == 1.0 && visit(ctx.c2) == 1.0) {
-				return 1.0;
-			}
-		} else {
-			if (visit(ctx.c1) == 1.0 || visit(ctx.c2) == 1.0) {
-				return 1.0;
-			}
+	public Double visitAnd(simpleCalcParser.AndContext ctx) {
+		if (visit(ctx.c1) == 1.0 && visit(ctx.c2) == 1.0) {
+			return 1.0;
+		}
+		return 0.0;
+	}
+	public Double visitOr(simpleCalcParser.OrContext ctx) {
+		if (visit(ctx.c1) == 1.0 || visit(ctx.c2) == 1.0) {
+			return 1.0;
 		}
 		return 0.0;
 	}
@@ -209,6 +213,17 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 
 	public Double visitScope(simpleCalcParser.ScopeContext ctx) {
 		visit(ctx.s);
+		return 0.0;
+	}
+	public Double visitPrintStr(simpleCalcParser.PrintStrContext ctx) {
+		String str_in = ctx.str.getText();
+		String str_out = str_in.substring(1, str_in.length()-1);
+
+		System.out.println(str_out);
+		return 0.0;
+	}
+	public Double visitPrintVar(simpleCalcParser.PrintVarContext ctx) {
+		System.out.println(visit(ctx.e));
 		return 0.0;
 	}
 }
