@@ -1,5 +1,20 @@
 i=0
+n=3
+pi=1
 
-while i < 10 {print "hej" print i i=i+1}
+while i < 100 {
+
+    pi=pi-(1/n)
+    n=n+2
+    pi=pi+(1/n)
+    n=n+2
+
+    i=i+1
+
+}
+
+print "the result is"
+print ""
+print pi*4
 
 
