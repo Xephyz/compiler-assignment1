@@ -13,8 +13,8 @@ expr : x=ID						# Variable
 ;
 
 stmt : x=ID '=' e=expr						# Assignment
-	| 'if' c=cond p=prog					# If
 	| 'if' c=cond p1=prog 'else' p2=prog	# IfElse
+	| 'if' c=cond p=prog					# If
 	| 'while' c=cond p=prog					# While
 	| 'print' str=STRING					# PrintStr
 	| 'print' e=expr						# PrintVar
