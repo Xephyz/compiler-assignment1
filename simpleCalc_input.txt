@@ -1,10 +1,9 @@
 // Task 1 example
-/*
 a = 2*3+4*5-10/5
 
 print "the result is"
 print a
-*/
+
 
 // Task 3.1 example
 /*
